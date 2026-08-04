@@ -1,5 +1,7 @@
 package Sistema_PDV.Otoque.github.com.produtosapi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,9 @@ public class ClientController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<ClientDTO> searchByCpf(@PathVariable String cpf){
-        return clientRepository.findById(cpf)
+        List<Client> clientes = clientRepository.findByCpfLimpo(cpf);
+        return clientes.stream()
+        .findFirst()
         .map(client -> ResponseEntity.ok(new ClientDTO(client)))
         .orElse(ResponseEntity.notFound().build());
     }
