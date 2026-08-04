@@ -18,9 +18,9 @@ function Login() {
       });
 
       if (response.data.permitido) {
-        sessionStorage.setItem('usuarioLogado', 'true');
-        sessionStorage.setItem('nomeFuncionario', response.data.funcionario)
-        navigate('/Dashboard');
+        localStorage.setItem('usuarioLogado', 'true');
+        localStorage.setItem('nomeFuncionario', response.data.funcionario)
+        navigate('/dashboard');
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {

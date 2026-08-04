@@ -10,7 +10,7 @@ export default function AppRoutes() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>}/>
 
-            <Route path="*" element={<Navigate to ="/Login" replace/>}/>
+            <Route path="*" element={<Navigate to ="/login" replace/>}/>
         </Routes>
     );
 }
