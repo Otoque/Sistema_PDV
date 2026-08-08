@@ -1,4 +1,4 @@
-package Sistema_PDV.Otoque.github.com.produtosapi.model;
+package Sistema_PDV.Otoque.github.com.produtosapi.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

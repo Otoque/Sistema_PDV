@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Sistema_PDV.Otoque.github.com.produtosapi.dto.ClientDTO;
-import Sistema_PDV.Otoque.github.com.produtosapi.model.Client;
+import Sistema_PDV.Otoque.github.com.produtosapi.entity.Client;
 import Sistema_PDV.Otoque.github.com.produtosapi.repository.ClientRepository;
 
 @RestController

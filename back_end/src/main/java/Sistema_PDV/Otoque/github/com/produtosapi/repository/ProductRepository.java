@@ -2,10 +2,10 @@ package Sistema_PDV.Otoque.github.com.produtosapi.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import Sistema_PDV.Otoque.github.com.produtosapi.model.Product;
+import Sistema_PDV.Otoque.github.com.produtosapi.entity.Product;
 
-public interface ProductRepository extends JpaRepository<Product, String>{
+public interface ProductRepository extends JpaRepository<Product, Long>{
 
-    List<Product> findByName(String name);
+    List<Product> findByNameContainingIgnoreCase(String name);
     
 }

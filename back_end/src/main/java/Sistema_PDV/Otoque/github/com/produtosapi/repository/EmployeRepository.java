@@ -2,7 +2,7 @@ package Sistema_PDV.Otoque.github.com.produtosapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import Sistema_PDV.Otoque.github.com.produtosapi.model.Employe;
+import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employe;
 
 import java.util.List;
 

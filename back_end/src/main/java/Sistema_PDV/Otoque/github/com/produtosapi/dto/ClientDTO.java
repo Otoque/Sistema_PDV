@@ -1,5 +1,5 @@
 package Sistema_PDV.Otoque.github.com.produtosapi.dto;
-import Sistema_PDV.Otoque.github.com.produtosapi.model.Client;
+import Sistema_PDV.Otoque.github.com.produtosapi.entity.Client;
 
 public class ClientDTO {
 

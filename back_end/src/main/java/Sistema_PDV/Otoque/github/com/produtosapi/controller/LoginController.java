@@ -3,7 +3,7 @@ package Sistema_PDV.Otoque.github.com.produtosapi.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import Sistema_PDV.Otoque.github.com.produtosapi.model.Employe;
+import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employe;
 import Sistema_PDV.Otoque.github.com.produtosapi.repository.EmployeRepository;
 
 import java.util.*;
