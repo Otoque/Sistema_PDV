@@ -22,3 +22,4 @@ public record ClientRequestDTO(
     String email
 
 ) {}
+

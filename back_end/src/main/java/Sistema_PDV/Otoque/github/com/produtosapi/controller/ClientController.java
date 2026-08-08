@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Sistema_PDV.Otoque.github.com.produtosapi.dto.ClientDTO;
+import Sistema_PDV.Otoque.github.com.produtosapi.dto.ClientResponseDTO;
 import Sistema_PDV.Otoque.github.com.produtosapi.entity.Client;
 import Sistema_PDV.Otoque.github.com.produtosapi.repository.ClientRepository;
 
@@ -26,18 +26,18 @@ public class ClientController {
     private ClientRepository clientRepository;
 
     @PostMapping
-    public ResponseEntity<ClientDTO> save(@RequestBody Client client){
+    public ResponseEntity<ClientResponseDTO> save(@RequestBody Client client){
         System.out.printf("Client Saved %s%n", client);
         Client savedClient = clientRepository.save(client);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ClientDTO(savedClient));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ClientResponseDTO(savedClient));
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<ClientDTO> searchByCpf(@PathVariable String cpf){
+    public ResponseEntity<ClientResponseDTO> searchByCpf(@PathVariable String cpf){
         List<Client> clientes = clientRepository.findByCpfLimpo(cpf);
         return clientes.stream()
         .findFirst()
-        .map(client -> ResponseEntity.ok(new ClientDTO(client)))
+        .map(client -> ResponseEntity.ok(new ClientResponseDTO(client)))
         .orElse(ResponseEntity.notFound().build());
     }
 

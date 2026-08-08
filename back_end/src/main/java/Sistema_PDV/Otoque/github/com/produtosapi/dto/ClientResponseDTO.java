@@ -9,9 +9,8 @@ public record ClientResponseDTO(
     String phone,
     String email
 ) {
-    // Método estático para converter a Entidade Client no DTO de resposta
-    public static ClientResponseDTO fromEntity(Client client) {
-        return new ClientResponseDTO(
+    public ClientResponseDTO(Client client) {
+        this(
             client.getId(),
             client.getName(),
             client.getCpf(),
