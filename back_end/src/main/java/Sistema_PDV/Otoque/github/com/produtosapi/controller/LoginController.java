@@ -3,8 +3,8 @@ package Sistema_PDV.Otoque.github.com.produtosapi.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employe;
-import Sistema_PDV.Otoque.github.com.produtosapi.repository.EmployeRepository;
+import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employee;
+import Sistema_PDV.Otoque.github.com.produtosapi.repository.EmployeeRepository;
 
 import java.util.*;
 
@@ -13,9 +13,9 @@ import java.util.*;
 @CrossOrigin(origins = "*") 
 public class LoginController {
 
-    private EmployeRepository repository;
+    private EmployeeRepository repository;
 
-    public LoginController(EmployeRepository repository){
+    public LoginController(EmployeeRepository repository){
         this.repository = repository;
     }
 
@@ -26,10 +26,10 @@ public class LoginController {
             String matriculaStr = payload.get("matricula");
             Integer matriculaInt = Integer.parseInt(matriculaStr);
 
-            List<Employe> listaFuncionarios = repository.findByRegistration(matriculaInt);
+            List<Employee> listaFuncionarios = repository.findByRegistration(matriculaInt);
 
             if (!listaFuncionarios.isEmpty()) {
-                Employe funcionario = listaFuncionarios.get(0); 
+                Employee funcionario = listaFuncionarios.get(0); 
                 
                 Map<String, Object> resposta = new HashMap<>();
                 resposta.put("permitido", true);

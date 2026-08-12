@@ -25,7 +25,7 @@ public class Order{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
-    private Employe employe;
+    private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
@@ -54,8 +54,8 @@ public class Order{
 
     public Order(){}
 
-    public Order(Employe employe, Client client){
-        this.employe = employe;
+    public Order(Employee employee, Client client){
+        this.employee = employee;
         this.client = client;
     }
 
@@ -67,12 +67,12 @@ public class Order{
         this.id = id;
     }
 
-    public Employe getEmploye(){
-        return employe;
+    public Employee getEmployee(){
+        return employee;
     }
 
-    public void setEmploye(Employe employe){
-        this.employe = employe;
+    public void setEmployee(Employee employee){
+        this.employee = employee;
     }
 
     public Client getClient() {
