@@ -1,0 +1,21 @@
+### Criar Funcionário (Cenário de Sucesso)
+POST http://localhost:8080/employe
+Content-Type: application/json
+
+{
+  "name": "Nicolas Tavares",
+  "cpf": "71339331446",
+  "position": "Desenvolvedor Backend",
+  "registration": 385525
+}
+
+### Criar Funcionário (Teste de Validação - Campos Opcionais/Nulos)
+POST http://localhost:8080/employe
+Content-Type: application/json
+
+{
+  "name": "Pedro Santos",
+  "cpf": "98765432100",
+  "position": "Atendente 1",
+  "registration": 1002
+}
