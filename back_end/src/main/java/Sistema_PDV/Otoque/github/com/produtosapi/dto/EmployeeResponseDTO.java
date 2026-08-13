@@ -2,7 +2,7 @@ package Sistema_PDV.Otoque.github.com.produtosapi.dto;
 
 import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employee;
 
-record EmployeeResponseDTO(
+public record EmployeeResponseDTO(
     Long id,
     String name,
     String cpf,
