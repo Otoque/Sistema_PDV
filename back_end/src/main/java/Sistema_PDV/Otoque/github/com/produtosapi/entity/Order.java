@@ -3,6 +3,12 @@ package Sistema_PDV.Otoque.github.com.produtosapi.entity;
 import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,11 +21,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = {"employee", "client"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Order{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -50,65 +63,4 @@ public class Order{
             this.totalValue = 0.0;
         }
     }
-
-    public Order(){}
-
-    public Order(Employee employee, Client client){
-        this.employee = employee;
-        this.client = client;
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public void setId(Long id){
-        this.id = id;
-    }
-
-    public Employee getEmployee(){
-        return employee;
-    }
-
-    public void setEmployee(Employee employee){
-        this.employee = employee;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public Double getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(Double totalValue) {
-        this.totalValue = totalValue;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Order [id: %d, dateCreated: %s, status: %s, totalValue: %.2f]", id, dateCreated, status, totalValue);
-    }
-
 }

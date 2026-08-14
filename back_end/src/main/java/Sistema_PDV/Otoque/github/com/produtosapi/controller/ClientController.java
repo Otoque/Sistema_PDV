@@ -1,7 +1,5 @@
 package Sistema_PDV.Otoque.github.com.produtosapi.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Sistema_PDV.Otoque.github.com.produtosapi.dto.ClientResponseDTO;
 import Sistema_PDV.Otoque.github.com.produtosapi.entity.Client;
-import Sistema_PDV.Otoque.github.com.produtosapi.repository.ClientRepository;
+import Sistema_PDV.Otoque.github.com.produtosapi.service.ClientService;
 
 @RestController
 @RequestMapping("client")
@@ -23,21 +21,18 @@ import Sistema_PDV.Otoque.github.com.produtosapi.repository.ClientRepository;
 public class ClientController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @PostMapping
     public ResponseEntity<ClientResponseDTO> save(@RequestBody Client client){
-        System.out.printf("Client Saved %s%n", client);
-        Client savedClient = clientRepository.save(client);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ClientResponseDTO(savedClient));
+        ClientResponseDTO dto = clientService.save(client);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<ClientResponseDTO> searchByCpf(@PathVariable String cpf){
-        List<Client> clientes = clientRepository.findByCpfLimpo(cpf);
-        return clientes.stream()
-        .findFirst()
-        .map(client -> ResponseEntity.ok(new ClientResponseDTO(client)))
+        return clientService.searchByCpf(cpf)
+        .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
     }
 

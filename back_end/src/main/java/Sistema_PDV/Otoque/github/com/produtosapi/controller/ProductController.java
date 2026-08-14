@@ -1,11 +1,11 @@
 package Sistema_PDV.Otoque.github.com.produtosapi.controller;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,61 +17,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Sistema_PDV.Otoque.github.com.produtosapi.entity.Product;
-import Sistema_PDV.Otoque.github.com.produtosapi.repository.ProductRepository;
+import Sistema_PDV.Otoque.github.com.produtosapi.service.ProductService;
 
 
 @RestController
 @RequestMapping("products")
+@CrossOrigin(origins = "*")
 public class ProductController {
-    
-    private ProductRepository productRepository;
-    
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
+   
+    @Autowired
+    private ProductService productService;
 
     @PostMapping
     public ResponseEntity<Product> save(@RequestBody Product product){
-        System.out.println("Product received " + product);
-        Product savedProduct = productRepository.save(product);
+        Product savedProduct = productService.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<Product> getById(@PathVariable("id") Long id){
-        Optional<Product> productOptional = productRepository.findById(id);
-
-        if(productOptional.isPresent()){
-            return ResponseEntity.ok(productOptional.get());
-        }
-        return ResponseEntity.notFound().build();
+        return productService.getById(id)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<Product>> search(@RequestParam(value = "name", required = false) String name){
+        List<Product> products = productService.search(name);
+        return ResponseEntity.ok(products);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id){
-        if(!productRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
+        boolean deleted = productService.delete(id);
+        if (deleted){
+            return ResponseEntity.noContent().build();
         }
-       productRepository.deleteById(id);
-       return ResponseEntity.noContent().build();
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> update(@PathVariable("id") Long id, @RequestBody Product product){
-        if(!productRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-        product.setId(id);
-        Product updatedProduct = productRepository.save(product);
-        return ResponseEntity.ok(updatedProduct);
-    }
-
-    @GetMapping
-    public List<Product> search(@RequestParam("name") String name){
-        if(name != null && !name.isBlank()){
-            return productRepository.findByNameContainingIgnoreCase(name);
-        }
-        return productRepository.findAll();
+        return productService.update(id, product)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
 }
