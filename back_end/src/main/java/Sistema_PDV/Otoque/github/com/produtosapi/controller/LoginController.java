@@ -1,48 +1,26 @@
 package Sistema_PDV.Otoque.github.com.produtosapi.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employee;
-import Sistema_PDV.Otoque.github.com.produtosapi.repository.EmployeeRepository;
 
-import java.util.*;
+import Sistema_PDV.Otoque.github.com.produtosapi.dto.LoginRequestDTO;
+import Sistema_PDV.Otoque.github.com.produtosapi.dto.LoginResponseDTO;
+import Sistema_PDV.Otoque.github.com.produtosapi.service.LoginService;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*") 
 public class LoginController {
 
-    private EmployeeRepository repository;
-
-    public LoginController(EmployeeRepository repository){
-        this.repository = repository;
-    }
+    @Autowired
+    private LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> verificarAcesso(@RequestBody Map<String, String> payload) {
-        try {
-            
-            String matriculaStr = payload.get("matricula");
-            Integer matriculaInt = Integer.parseInt(matriculaStr);
-
-            List<Employee> listaFuncionarios = repository.findByRegistration(matriculaInt);
-
-            if (!listaFuncionarios.isEmpty()) {
-                Employee funcionario = listaFuncionarios.get(0); 
-                
-                Map<String, Object> resposta = new HashMap<>();
-                resposta.put("permitido", true);
-                resposta.put("funcionario", funcionario.getName()); 
-                
-                return ResponseEntity.ok(resposta);
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Matrícula não encontrada no sistema.");
-            }
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("A matrícula deve ser apenas números.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro no servidor.");
-        }
+    public ResponseEntity<LoginResponseDTO> checkAcess(@RequestBody LoginRequestDTO payload) {
+        return loginService.checkAcess(payload)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 }

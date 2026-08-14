@@ -32,7 +32,7 @@
             if (e) e.preventDefault();
             const cpfApenasNumeros = cpfCliente.replace(/\D/g, '');
             if (!cpfApenasNumeros) return alert("Por favor, digite o CPF do cliente!");
-
+            setCpfCliente('');
             setCarregando(true);
             setDadosCliente(null);
 
@@ -98,6 +98,12 @@
                                     {/* Formata o CPF retornado do banco com a máscara */}
                                     <p className="client-cpf">
                                         {mascararCPF(dadosCliente.cpf || cpfCliente)}
+                                    </p>
+                                    <p className="client-phone">
+                                        {dadosCliente.phone}
+                                    </p>
+                                    <p className="client-email">
+                                        {dadosCliente.email}
                                     </p>
                                 </div>
                             ) : (

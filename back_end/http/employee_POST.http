@@ -1,5 +1,5 @@
 ### Criar Funcionário (Cenário de Sucesso)
-POST http://localhost:8080/employe
+POST http://localhost:8080/employee
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Criar Funcionário (Teste de Validação - Campos Opcionais/Nulos)
-POST http://localhost:8080/employe
+POST http://localhost:8080/employee
 Content-Type: application/json
 
 {
