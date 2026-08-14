@@ -57,7 +57,7 @@ public class Order{
     public void prePersist(){
         this.dateCreated = LocalDateTime.now();
         if(this.status == null){
-            this.status = OrderStatus.CART;
+            this.status = OrderStatus.WAITING_PAYMENT;
         }
         if(this.totalValue == null){
             this.totalValue = 0.0;

@@ -7,3 +7,4 @@ target/
 ### VS Code ###
 .vscode/
 .env
+http/
