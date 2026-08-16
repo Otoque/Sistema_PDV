@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-record EmployeeRequestDTO(
+public record EmployeeRequestDTO(
     
     @NotBlank(message = "O nome é obrigatório.")
     @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")

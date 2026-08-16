@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Sistema_PDV.Otoque.github.com.produtosapi.dto.EmployeeResponseDTO;
-import Sistema_PDV.Otoque.github.com.produtosapi.entity.Employee;
+import Sistema_PDV.Otoque.github.com.produtosapi.dto.EmployeeRequestDTO;
 import Sistema_PDV.Otoque.github.com.produtosapi.service.EmployeeService;
 
 @RestController
@@ -20,7 +20,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
     
     @PostMapping
-    public ResponseEntity<EmployeeResponseDTO> save(@RequestBody Employee employee){
+    public ResponseEntity<EmployeeResponseDTO> save(@RequestBody EmployeeRequestDTO employee){
         EmployeeResponseDTO dto = employeeService.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }

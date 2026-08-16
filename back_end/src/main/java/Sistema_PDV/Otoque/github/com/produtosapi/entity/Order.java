@@ -53,6 +53,14 @@ public class Order{
     @Column(name = "total_value", nullable = false)
     private Double totalValue;
 
+    public void setStatusCode(int code){
+        this.status = OrderStatus.valueOf(code);
+    }
+
+    public int getStatusCode(){
+        return this.status != null ? this.status.getCode() : 0;
+    }
+
     @PrePersist
     public void prePersist(){
         this.dateCreated = LocalDateTime.now();
